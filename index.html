@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cam Esmon â Product Engineering Portfolio</title>
+  <style>
+    /* âââ RESET & BASE âââââââââââââââââââââââââââââââââââ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:       #08080d;
+      --surface:  #0f0f18;
+      --card:     #12121e;
+      --border:   #1f1f35;
+      --cyan:     #00d4ff;
+      --orange:   #ff6b35;
+      --purple:   #9b7ff4;
+      --green:    #00e5a0;
+      --text:     #e8e8f0;
+      --muted:    #6a6a88;
+      --mono:     'Courier New', monospace;
+      --sans:     'Segoe UI', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      overflow-x: hidden;
+    }
+
+    /* âââ SCROLLBAR ââââââââââââââââââââââââââââââââââââââ */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+    /* âââ HERO âââââââââââââââââââââââââââââââââââââââââââ */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 2rem;
+    }
+
+    /* Blueprint grid canvas */
+    #grid-canvas {
+      position: absolute;
+      inset: 0;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    /* Gradient orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+    }
+    .orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(0,212,255,0.15) 0%, transparent 70%);
+      top: -100px; left: -100px;
+    }
+    .orb-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(255,107,53,0.12) 0%, transparent 70%);
+      bottom: -80px; right: -80px;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      color: var(--cyan);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeUp 0.7s ease 0.3s forwards;
+    }
+    .hero-eyebrow::before { content: '// '; opacity: 0.5; }
+
+    .hero-name {
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #fff 0%, var(--cyan) 50%, var(--orange) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s ease 0.5s forwards;
+    }
+
+    .hero-title {
+      font-family: var(--mono);
+      font-size: clamp(0.85rem, 2vw, 1.05rem);
+      color: var(--muted);
+      margin-top: 1.2rem;
+      letter-spacing: 0.1em;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeUp 0.7s ease 0.75s forwards;
+    }
+    .hero-title span { color: var(--orange); }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 4rem;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeUp 0.7s ease 1s forwards;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-num {
+      font-family: var(--mono);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--cyan);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.4rem;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.5s forwards;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--cyan), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* âââ SECTION WRAPPER ââââââââââââââââââââââââââââââââ */
+    section {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 6rem 2rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .section-label::before { content: '// '; }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .accent-cyan { color: var(--cyan); }
+    .accent-orange { color: var(--orange); }
+
+    /* âââ DIVIDER âââââââââââââââââââââââââââââââââââââââââ */
+    .divider {
+      border: none;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+      margin: 0 2rem;
+    }
+
+    /* âââ PRODUCT GRID âââââââââââââââââââââââââââââââââââ */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* âââ PRODUCT CARD âââââââââââââââââââââââââââââââââââ */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      position: relative;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .card.visible {
+      animation: cardReveal 0.6s ease forwards;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      background: linear-gradient(135deg, rgba(0,212,255,0.04) 0%, rgba(255,107,53,0.04) 100%);
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(0,212,255,0.35);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,212,255,0.1), 0 0 30px rgba(0,212,255,0.06);
+    }
+    .card:hover::before { opacity: 1; }
+
+    /* Corner brackets on hover */
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 10px; left: 10px;
+      width: 16px; height: 16px;
+      border-top: 2px solid var(--cyan);
+      border-left: 2px solid var(--cyan);
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      transform: translate(-4px, -4px);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .card:hover::after { opacity: 1; transform: translate(0, 0); }
+    .card-corner-br {
+      position: absolute;
+      bottom: 10px; right: 10px;
+      width: 16px; height: 16px;
+      border-bottom: 2px solid var(--orange);
+      border-right: 2px solid var(--orange);
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      transform: translate(4px, 4px);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .card:hover .card-corner-br { opacity: 1; transform: translate(0, 0); }
+
+    /* Image area */
+    .card-img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .card-img-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      width: 100%;
+      height: 100%;
+      opacity: 0.35;
+    }
+    .placeholder-icon {
+      width: 48px;
+      height: 48px;
+      border: 1.5px solid currentColor;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .placeholder-icon svg { width: 24px; height: 24px; }
+    .placeholder-text {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    /* Category tag */
+    .card-tag {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      border-radius: 2px;
+      font-weight: 700;
+      z-index: 3;
+    }
+    .tag-hydration { background: rgba(0,212,255,0.15); color: var(--cyan); border: 1px solid rgba(0,212,255,0.3); }
+    .tag-coffee    { background: rgba(255,107,53,0.15); color: var(--orange); border: 1px solid rgba(255,107,53,0.3); }
+    .tag-licensed  { background: rgba(155,127,244,0.15); color: var(--purple); border: 1px solid rgba(155,127,244,0.3); }
+    .tag-glass     { background: rgba(0,229,160,0.15); color: var(--green); border: 1px solid rgba(0,229,160,0.3); }
+    .tag-insulated { background: rgba(0,212,255,0.15); color: var(--cyan); border: 1px solid rgba(0,212,255,0.3); }
+    .tag-placeholder { background: rgba(106,106,136,0.15); color: var(--muted); border: 1px solid rgba(106,106,136,0.3); }
+
+    /* Card body */
+    .card-body { padding: 1.4rem 1.5rem 1.5rem; }
+
+    .card-num {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.2em;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-name {
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+
+    .card-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+
+    .card-features {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.4rem;
+    }
+    .card-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.78rem;
+      color: var(--text);
+      opacity: 0.85;
+    }
+    .feat-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .card-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .card-cta-detail {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      transition: gap 0.2s ease;
+      flex: 1;
+    }
+    .card:hover .card-cta-detail { gap: 0.85rem; }
+    .card-cta-arrow {
+      font-size: 1rem;
+      transition: transform 0.2s ease;
+    }
+    .card:hover .card-cta-arrow { transform: translateX(4px); }
+    .card-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.7rem;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      text-decoration: none;
+      background: transparent;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+    .card-link-btn:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+      background: rgba(255,107,53,0.06);
+    }
+    .card-link-btn.disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    /* âââ MODAL âââââââââââââââââââââââââââââââââââââââââââ */
+    #modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4,4,12,0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    #modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    #modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      width: 100%;
+      max-width: 900px;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: translateY(24px) scale(0.97);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+    }
+    #modal-overlay.open #modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    @media (max-width: 640px) {
+      .modal-header { grid-template-columns: 1fr; }
+    }
+
+    .modal-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px 0 0 0;
+      overflow: hidden;
+    }
+    .modal-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .modal-img-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0.3;
+    }
+    .modal-img-placeholder svg { width: 56px; height: 56px; }
+    .modal-img-placeholder span {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .modal-intro {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .modal-tag {
+      display: inline-flex;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      border-radius: 2px;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      align-self: flex-start;
+    }
+
+    .modal-name {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .modal-product-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.55rem 1.1rem;
+      border-radius: 3px;
+      border: 1px solid var(--orange);
+      color: var(--orange);
+      text-decoration: none;
+      background: rgba(255,107,53,0.06);
+      margin-bottom: 1.2rem;
+      align-self: flex-start;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .modal-product-link:hover {
+      background: rgba(255,107,53,0.14);
+      box-shadow: 0 0 16px rgba(255,107,53,0.15);
+    }
+    .modal-product-link.disabled {
+      opacity: 0.35;
+      pointer-events: none;
+      border-color: var(--muted);
+      color: var(--muted);
+      background: transparent;
+    }
+    .modal-challenge {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+      padding: 1rem;
+      border-left: 2px solid var(--orange);
+      background: rgba(255,107,53,0.04);
+      border-radius: 0 3px 3px 0;
+      margin-bottom: 1.2rem;
+    }
+    .modal-challenge strong {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.4rem;
+    }
+
+    .modal-body {
+      padding: 0 2rem 2rem;
+    }
+
+    .modal-section-title {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-section-title::before { content: '// '; }
+
+    /* Innovations */
+    .innovations {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .innovation-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1rem;
+    }
+    .innovation-num {
+      font-family: var(--mono);
+      font-size: 1.8rem;
+      font-weight: 700;
+      opacity: 0.12;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .innovation-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .innovation-desc {
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* Process timeline */
+    .process-timeline {
+      display: flex;
+      gap: 0;
+      position: relative;
+      margin-bottom: 1rem;
+    }
+    .process-timeline::before {
+      content: '';
+      position: absolute;
+      top: 22px;
+      left: 22px;
+      right: 22px;
+      height: 1px;
+      background: var(--border);
+    }
+    .process-step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 0.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .process-dot {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: var(--card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .process-step:hover .process-dot {
+      border-color: var(--cyan);
+      background: rgba(0,212,255,0.1);
+      color: var(--cyan);
+    }
+    .process-step-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.3rem;
+    }
+    .process-step-desc {
+      font-size: 0.68rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* Close button */
+    #modal-close {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: flex-end;
+      padding: 1rem 1.2rem 0;
+      background: var(--surface);
+    }
+    #modal-close button {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    #modal-close button:hover {
+      background: rgba(255,107,53,0.1);
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
+    /* âââ ABOUT STRIP ââââââââââââââââââââââââââââââââââââ */
+    #about-strip {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    #about-strip section {
+      padding: 5rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    @media (max-width: 700px) {
+      #about-strip section { grid-template-columns: 1fr; gap: 2rem; }
+    }
+    .about-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 1rem;
+    }
+    .about-label::before { content: '// '; opacity: 0.5; }
+    .about-heading {
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+    .about-text {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .about-text p + p { margin-top: 1rem; }
+
+    /* âââ FOOTER âââââââââââââââââââââââââââââââââââââââââ */
+    footer {
+      text-align: center;
+      padding: 4rem 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .footer-name {
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.4rem;
+    }
+    .footer-role {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .footer-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--border);
+      margin: 1.5rem auto;
+    }
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    /* âââ ANIMATIONS âââââââââââââââââââââââââââââââââââââ */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.15); }
+    }
+    @keyframes cardReveal {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* âââ REVEAL (scroll-triggered) ââââââââââââââââââââââ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+  </style>
+</head>
+<body>
+
+<!-- ââ HERO ââââââââââââââââââââââââââââââââââââââââââââââ -->
+<div id="hero">
+  <canvas id="grid-canvas"></canvas>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <p class="hero-eyebrow">Product Engineering Portfolio</p>
+  <h1 class="hero-name">Cam Esmon</h1>
+  <p class="hero-title">
+    Hardware Engineer &amp; Product Designer &nbsp;Â·&nbsp;
+    <span>Simple Modern</span>
+  </p>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num" data-target="6">0</div>
+      <div class="stat-label">Products</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" data-target="4">0</div>
+      <div class="stat-label">Categories</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" data-target="100" data-suffix="M+">0</div>
+      <div class="stat-label">Units Sold</div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll to explore</span>
+  </div>
+</div>
+
+<!-- ââ ABOUT STRIP ââââââââââââââââââââââââââââââââââââââââ -->
+<div id="about-strip">
+  <section>
+    <div class="reveal">
+      <p class="about-label">About</p>
+      <h2 class="about-heading">
+        Engineering the Details<br />
+        <span style="color:var(--cyan)">No One Sees</span>
+      </h2>
+    </div>
+    <div class="about-text reveal reveal-delay-1">
+      <p>
+        I'm a product engineer at Simple Modern â a drinkware brand obsessed with delivering premium quality at accessible prices. My work lives at the intersection of mechanical engineering, industrial design, and manufacturing.
+      </p>
+      <p>
+        Every product here represents a real challenge: hitting tight cost targets without sacrificing function, surviving brutal drop tests, sealing reliably across extreme temperatures, and feeling genuinely premium in your hand.
+      </p>
+    </div>
+  </section>
+</div>
+
+<hr class="divider" />
+
+<!-- ââ PRODUCTS âââââââââââââââââââââââââââââââââââââââââââ -->
+<section id="products">
+  <div class="section-header reveal">
+    <span class="section-label">Work</span>
+    <h2 class="section-title">Engineered <span class="accent-cyan">Products</span></h2>
+  </div>
+
+  <div class="product-grid" id="product-grid">
+    <!-- Cards injected by JS -->
+  </div>
+</section>
+
+<!-- ââ MODAL ââââââââââââââââââââââââââââââââââââââââââââââ -->
+<div id="modal-overlay" role="dialog" aria-modal="true">
+  <div id="modal">
+    <div id="modal-close"><button aria-label="Close">â</button></div>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<!-- ââ FOOTER âââââââââââââââââââââââââââââââââââââââââââââ -->
+<footer>
+  <div class="footer-name">Cam Esmon</div>
+  <div class="footer-role">Hardware Engineer Â· Simple Modern</div>
+  <div class="footer-divider"></div>
+  <div class="footer-copy">
+    <span style="color:var(--cyan)">cameron.esmon@simplemodern.com</span>
+    &nbsp;Â·&nbsp; Â© 2026
+  </div>
+</footer>
+
+<!-- ââ SCRIPTS ââââââââââââââââââââââââââââââââââââââââââââ -->
+<script>
+/* âââââââââââââââââââââââââââââââââââââââââ
+   DATA
+âââââââââââââââââââââââââââââââââââââââââ */
+const products = [
+  {
+    id: 1,
+    name: "Advanced Lid System\nWater Bottle",
+    tagShort: "Complex Lid",
+    tag: "hydration",
+    tagLabel: "Hydration",
+    link: "https://www.simplemodern.com/collections/water-bottles",
+    challenge: "Design a leak-proof lid mechanism operable with a single hand while maintaining a hermetic seal across temperature ranges from â20Â°C to 100Â°C â and survive a 6-ft drop test onto concrete.",
+
+    features: [
+      "One-handed flip operation with tactile detent",
+      "3-point silicone seal system",
+      "Double-wall vacuum insulation, 24hr cold",
+    ],
+    innovations: [
+      { title: "Hinge Lock Geometry", desc: "Precision-toleranced living hinge with dual-action detent prevents accidental openings during inversion." },
+      { title: "Thermal Seal Ring", desc: "Asymmetric silicone gasket profile maintains positive seal under both positive and negative pressure." },
+      { title: "Cost-Optimized BOM", desc: "Reduced lid component count by 40% vs. initial concept while improving assembly yield rate." },
+    ],
+    process: [
+      { label: "Concept", desc: "Mechanism sketching, lid typology review, competitor teardowns" },
+      { label: "Engineering", desc: "CAD modeling, FEA on hinge, tolerance stack-up analysis, DFM review" },
+      { label: "Validation", desc: "Drop test, leak test, thermal cycle, consumer use-study, tooling release" },
+    ],
+  },
+  {
+    id: 2,
+    name: "Electric Vacuum\nCoffee Canister",
+    tagShort: "Coffee Tech",
+    tag: "coffee",
+    tagLabel: "Coffee",
+    link: "https://www.simplemodern.com/collections/coffee-canisters",
+    challenge: "Integrate a battery-powered micro-vacuum pump into a consumer coffee canister that extends bean freshness to 60+ days â all within a $35 retail price and child-safe locking mechanism.",
+    features: [
+      "Motorized pump evacuates to â0.6 bar",
+      "Pressure sensor with LED freshness indicator",
+      "Child-resistant lock mechanism",
+    ],
+    innovations: [
+      { title: "Miniaturized Pump Integration", desc: "Custom pump bracket and PCB nest inside a 38mm lid cavity without compromising structural integrity." },
+      { title: "Pressure Feedback Loop", desc: "Sensor-gated pump cycle stops automatically at target vacuum, preventing over-stress on the lid seal." },
+      { title: "Battery Life Optimization", desc: "Sleep-mode firmware extends CR2 battery to 200+ cycles; visual indicator at 20% remaining." },
+    ],
+    process: [
+      { label: "Concepting", desc: "Market research, pump vendor sourcing, initial PCB layout concepts" },
+      { label: "Prototyping", desc: "3D printed housings, off-shelf pump testing, firmware iteration" },
+      { label: "Production", desc: "Tooling, assembly SOP, QC electrical test fixture, retail packaging" },
+    ],
+  },
+  {
+    id: 3,
+    name: "OKC Thunder\nBasketball Display Case",
+    tagShort: "Licensed",
+    tag: "licensed",
+    tagLabel: "Licensed",
+    link: "https://www.simplemodern.com/collections/sports-drinkware",
+    challenge: "Design a display case for authentic OKC Thunder basketballs that meets NBA licensing requirements, ships flat-pack, and assembles tool-free â while feeling premium enough for a flagship retail gift.",
+    features: [
+      "NBA-licensed materials & finishes",
+      "Tool-free snap-fit assembly",
+      "UV-resistant acrylic viewing panel",
+    ],
+    innovations: [
+      { title: "Snap-Fit Joinery", desc: "Engineered 8 interlocking joints that pass 50lb vertical load test with no adhesive or hardware." },
+      { title: "Branding Integration", desc: "Co-designed with NBA licensor; Thunder colorway embedded in material selection, not applied print." },
+      { title: "Flat-Pack Efficiency", desc: "All components nest into a 14Ã14Ã3\" shipping carton, achieving 6:1 volume reduction vs. assembled." },
+    ],
+    process: [
+      { label: "Licensing", desc: "NBA style guide review, approved material palette, colorway sign-off" },
+      { label: "Structural Eng.", desc: "Joint geometry, load testing, acrylic thickness optimization, drop simulation" },
+      { label: "Launch", desc: "Packaging design, retail planogram fit, QC visual inspection criteria" },
+    ],
+  },
+  {
+    id: 4,
+    name: "Glass Drinkware\nSeries",
+    tagShort: "Glassware",
+    tag: "glass",
+    tagLabel: "Glass",
+    link: "https://www.simplemodern.com/collections/glass-drinkware",
+    challenge: "Develop a borosilicate glass tumbler with an injection-molded silicone sleeve that provides grip, thermal protection, and drop resistance â while keeping the product dishwasher-safe and at sub-$20 retail.",
+    features: [
+      "Borosilicate glass, rated to 300Â°C thermal shock",
+      "Over-molded silicone grip sleeve",
+      "Dishwasher-safe to 500+ cycles",
+    ],
+    innovations: [
+      { title: "Sleeve Interface Geometry", desc: "Ribs on the glass body interlock with the silicone sleeve for zero-slip retention without adhesive." },
+      { title: "Thermal Shock Protocol", desc: "Custom test rig validates 0Â°Câ95Â°C cycling â 3Ã tighter than industry standard." },
+      { title: "Sustainable Sourcing", desc: "Transitioned supplier to 30% recycled borosilicate batch without degrading optical clarity." },
+    ],
+    process: [
+      { label: "Material Selection", desc: "Glass type comparison, silicone durometer testing, colorant compatibility" },
+      { label: "Tooling", desc: "Glass mold design, silicone over-mold tooling, parting line optimization" },
+      { label: "Testing", desc: "Dishwasher cycle test, thermal shock, drop test, sleeve pull-off force" },
+    ],
+  },
+  {
+    id: 5,
+    name: "[ Your Product\nHere ]",
+    tagShort: "Add Yours",
+    tag: "placeholder",
+    tagLabel: "Add Yours",
+    link: "",
+    challenge: "Describe the core engineering challenge you solved with this product. What constraints were you working against â cost, size, performance, manufacturing?",
+    features: [
+      "Key feature or specification 1",
+      "Key feature or specification 2",
+      "Key feature or specification 3",
+    ],
+    innovations: [
+      { title: "Innovation Title", desc: "Brief description of the technical approach or clever solution you devised." },
+      { title: "Innovation Title", desc: "Brief description of the technical approach or clever solution you devised." },
+      { title: "Innovation Title", desc: "Brief description of the technical approach or clever solution you devised." },
+    ],
+    process: [
+      { label: "Phase 1", desc: "What you did in the first phase of the project" },
+      { label: "Phase 2", desc: "What you did in the second phase of the project" },
+      { label: "Phase 3", desc: "What you did in the final phase of the project" },
+    ],
+  },
+  {
+    id: 6,
+    name: "[ Your Product\nHere ]",
+    tagShort: "Add Yours",
+    tag: "placeholder",
+    tagLabel: "Add Yours",
+    link: "",
+    challenge: "Describe the core engineering challenge you solved with this product. What constraints were you working against â cost, size, performance, manufacturing?",
+    features: [
+      "Key feature or specification 1",
+      "Key feature or specification 2",
+      "Key feature or specification 3",
+    ],
+    innovations: [
+      { title: "Innovation Title", desc: "Brief description of the technical approach or clever solution you devised." },
+      { title: "Innovation Title", desc: "Brief description of the technical approach or clever solution you devised." },
+      { title: "Innovation Title", desc: "Brief description of the technical approach or clever solution you devised." },
+    ],
+    process: [
+      { label: "Phase 1", desc: "What you did in the first phase of the project" },
+      { label: "Phase 2", desc: "What you did in the second phase of the project" },
+      { label: "Phase 3", desc: "What you did in the final phase of the project" },
+    ],
+  },
+];
+
+const tagColors = {
+  hydration: { bg: 'rgba(0,212,255,0.15)', color: '#00d4ff', border: 'rgba(0,212,255,0.3)' },
+  coffee:    { bg: 'rgba(255,107,53,0.15)', color: '#ff6b35', border: 'rgba(255,107,53,0.3)' },
+  licensed:  { bg: 'rgba(155,127,244,0.15)', color: '#9b7ff4', border: 'rgba(155,127,244,0.3)' },
+  glass:     { bg: 'rgba(0,229,160,0.15)', color: '#00e5a0', border: 'rgba(0,229,160,0.3)' },
+  insulated: { bg: 'rgba(0,212,255,0.15)', color: '#00d4ff', border: 'rgba(0,212,255,0.3)' },
+  placeholder: { bg: 'rgba(106,106,136,0.15)', color: '#6a6a88', border: 'rgba(106,106,136,0.3)' },
+};
+
+/* âââââââââââââââââââââââââââââââââââââââââ
+   BLUEPRINT GRID ANIMATION
+âââââââââââââââââââââââââââââââââââââââââ */
+(function() {
+  const canvas = document.getElementById('grid-canvas');
+  const ctx = canvas.getContext('2d');
+  let w, h, t = 0;
+
+  function resize() {
+    w = canvas.width  = canvas.offsetWidth;
+    h = canvas.height = canvas.offsetHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    const step = 60;
+    ctx.strokeStyle = 'rgba(0,212,255,0.55)';
+    ctx.lineWidth = 0.5;
+
+    // grid lines
+    for (let x = 0; x < w; x += step) {
+      ctx.globalAlpha = 0.3 + 0.15 * Math.sin(t * 0.3 + x * 0.02);
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, h);
+      ctx.stroke();
+    }
+    for (let y = 0; y < h; y += step) {
+      ctx.globalAlpha = 0.3 + 0.15 * Math.sin(t * 0.3 + y * 0.02);
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(w, y);
+      ctx.stroke();
+    }
+
+    // crosshairs at intersections (sparse)
+    ctx.globalAlpha = 0.4;
+    ctx.strokeStyle = 'rgba(255,107,53,0.7)';
+    for (let x = step; x < w; x += step * 3) {
+      for (let y = step; y < h; y += step * 3) {
+        const pulse = 0.5 + 0.5 * Math.sin(t * 0.8 + x * 0.03 + y * 0.03);
+        ctx.globalAlpha = 0.15 * pulse;
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(x - 8, y); ctx.lineTo(x + 8, y); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(x, y - 8); ctx.lineTo(x, y + 8); ctx.stroke();
+      }
+    }
+
+    t += 0.015;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* âââââââââââââââââââââââââââââââââââââââââ
+   COUNTER ANIMATION
+âââââââââââââââââââââââââââââââââââââââââ */
+function animateCounters() {
+  document.querySelectorAll('[data-target]').forEach(el => {
+    const target = parseInt(el.dataset.target);
+    const suffix = el.dataset.suffix || '';
+    let current = 0;
+    const step = target / 40;
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = Math.round(current) + suffix;
+      if (current >= target) clearInterval(timer);
+    }, 30);
+  });
+}
+setTimeout(animateCounters, 1200);
+
+/* âââââââââââââââââââââââââââââââââââââââââ
+   RENDER CARDS
+âââââââââââââââââââââââââââââââââââââââââ */
+const grid = document.getElementById('product-grid');
+
+const placeholderSVG = `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="4" y="8" width="40" height="32" rx="2" stroke="currentColor" stroke-width="1.5"/>
+  <path d="M4 32l10-10 8 8 8-8 14 12" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+  <circle cx="16" cy="18" r="4" stroke="currentColor" stroke-width="1.5"/>
+</svg>`;
+
+products.forEach((p, i) => {
+  const tc = tagColors[p.tag] || tagColors.placeholder;
+  const nameParts = p.name.split('\n');
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.dataset.id = p.id;
+  card.style.animationDelay = `${i * 0.08}s`;
+
+  card.innerHTML = `
+    <div class="card-img">
+      <div class="card-img-placeholder" style="color:${tc.color}">
+        <div class="placeholder-icon">${placeholderSVG}</div>
+        <span class="placeholder-text">Add product image</span>
+      </div>
+    </div>
+    <span class="card-tag tag-${p.tag}">${p.tagLabel}</span>
+    <div class="card-body">
+      <div class="card-num">PROJ â ${String(p.id).padStart(2,'0')}</div>
+      <div class="card-name">${nameParts[0]}<br/><span style="color:${tc.color}">${nameParts[1] || ''}</span></div>
+      <div class="card-desc">${p.challenge.length > 110 ? p.challenge.slice(0,110)+'â¦' : p.challenge}</div>
+      <div class="card-features">
+        ${p.features.map(f => `
+          <div class="card-feature">
+            <div class="feat-dot" style="background:${tc.color}"></div>
+            ${f}
+          </div>`).join('')}
+      </div>
+      <div class="card-cta">
+        <div class="card-cta-detail">
+          <span>Full detail</span>
+          <span class="card-cta-arrow">â</span>
+        </div>
+        ${p.link
+          ? `<a class="card-link-btn" href="${p.link}" target="_blank" rel="noopener" onclick="event.stopPropagation()">â View</a>`
+          : `<span class="card-link-btn disabled">â View</span>`
+        }
+      </div>
+    </div>
+    <div class="card-corner-br"></div>
+  `;
+
+  card.addEventListener('click', () => openModal(p));
+  grid.appendChild(card);
+});
+
+/* âââââââââââââââââââââââââââââââââââââââââ
+   MODAL
+âââââââââââââââââââââââââââââââââââââââââ */
+const overlay = document.getElementById('modal-overlay');
+const modalContent = document.getElementById('modal-content');
+document.querySelector('#modal-close button').addEventListener('click', closeModal);
+overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+function openModal(p) {
+  const tc = tagColors[p.tag] || tagColors.placeholder;
+  const nameParts = p.name.split('\n');
+
+  modalContent.innerHTML = `
+    <div class="modal-header">
+      <div class="modal-img">
+        <div class="modal-img-placeholder" style="color:${tc.color}">
+          ${placeholderSVG}
+          <span>Add product image</span>
+        </div>
+      </div>
+      <div class="modal-intro">
+        <span class="modal-tag" style="background:${tc.bg};color:${tc.color};border:1px solid ${tc.border}">${p.tagLabel}</span>
+        <h2 class="modal-name">${nameParts[0]}<br/><span style="color:${tc.color}">${nameParts[1] || ''}</span></h2>
+        ${p.link
+          ? `<a class="modal-product-link" href="${p.link}" target="_blank" rel="noopener">â &nbsp;View on simplemodern.com</a>`
+          : `<span class="modal-product-link disabled">â &nbsp;Link coming soon</span>`
+        }
+        <div class="modal-challenge">
+          <strong>// The Challenge</strong>
+          ${p.challenge}
+        </div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section-title" style="margin-top:1.5rem">Key Innovations</div>
+      <div class="innovations">
+        ${p.innovations.map((inn, i) => `
+          <div class="innovation-item">
+            <div class="innovation-num" style="color:${tc.color}">0${i+1}</div>
+            <div class="innovation-title">${inn.title}</div>
+            <div class="innovation-desc">${inn.desc}</div>
+          </div>`).join('')}
+      </div>
+      <div class="modal-section-title">Design &amp; Engineering Process</div>
+      <div class="process-timeline">
+        ${p.process.map((step, i) => `
+          <div class="process-step">
+            <div class="process-dot" style="border-color:${i===0?tc.color:'var(--border)'}; ${i===0?`background:${tc.bg};color:${tc.color}`:''}">
+              ${String(i+1).padStart(2,'0')}
+            </div>
+            <div class="process-step-label">${step.label}</div>
+            <div class="process-step-desc">${step.desc}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+  `;
+
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* âââââââââââââââââââââââââââââââââââââââââ
+   SCROLL REVEAL (IntersectionObserver)
+âââââââââââââââââââââââââââââââââââââââââ */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+const cardObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      cardObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.card').forEach(el => cardObserver.observe(el));
+</script>
+</body>
+</html>
