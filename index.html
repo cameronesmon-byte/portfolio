@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cam Esmon â Product Engineering Portfolio</title>
+  <title>Cam Esmon &mdash; Product Engineering Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    /* âââ RESET & BASE âââââââââââââââââââââââââââââââââââ */
+    /* --- RESET & BASE ----------------------------------- */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg:       #ffffff;
@@ -31,12 +31,12 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* âââ SCROLLBAR ââââââââââââââââââââââââââââââââââââââ */
+    /* --- SCROLLBAR -------------------------------------- */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-    /* âââ NAV ââââââââââââââââââââââââââââââââââââââââââââ */
+    /* --- NAV -------------------------------------------- */
     #nav {
       position: fixed;
       top: 0;
@@ -79,7 +79,7 @@
     }
     .nav-links a:hover { color: var(--text); }
 
-    /* âââ HERO âââââââââââââââââââââââââââââââââââââââââââ */
+    /* --- HERO ------------------------------------------- */
     #hero {
       padding-top: 7rem;
       padding-bottom: 6rem;
@@ -103,7 +103,7 @@
       font-weight: 400;
     }
 
-    /* âââ STATS ROW âââââââââââââââââââââââââââââââââââââââ */
+    /* --- STATS ROW --------------------------------------- */
     .stats-row {
       display: flex;
       justify-content: center;
@@ -136,7 +136,7 @@
       font-weight: 400;
     }
 
-    /* âââ SECTION WRAPPER ââââââââââââââââââââââââââââââââ */
+    /* --- SECTION WRAPPER -------------------------------- */
     .section-wrap {
       max-width: 1400px;
       margin: 0 auto;
@@ -151,7 +151,7 @@
       margin-bottom: 3.5rem;
     }
 
-    /* âââ ABOUT âââââââââââââââââââââââââââââââââââââââââââ */
+    /* --- ABOUT ------------------------------------------- */
     #about {
       background: var(--surface);
       border-top: 1px solid var(--border);
@@ -180,7 +180,7 @@
     }
     .about-text p + p { margin-top: 1.1rem; }
 
-    /* âââ PRODUCT GRID âââââââââââââââââââââââââââââââââââ */
+    /* --- PRODUCT GRID ----------------------------------- */
     .product-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -195,7 +195,7 @@
       .product-grid { grid-template-columns: 1fr; }
     }
 
-    /* âââ PRODUCT CARD âââââââââââââââââââââââââââââââââââ */
+    /* --- PRODUCT CARD ----------------------------------- */
     .card {
       background: var(--bg);
       cursor: pointer;
@@ -293,7 +293,7 @@
     .card-ext-link:hover { color: var(--text); }
     .card-ext-link.disabled { opacity: 0.3; pointer-events: none; }
 
-    /* âââ MODAL âââââââââââââââââââââââââââââââââââââââââââ */
+    /* --- MODAL ------------------------------------------- */
     #modal-overlay {
       position: fixed;
       inset: 0;
@@ -494,7 +494,7 @@
       line-height: 1.6;
     }
 
-    /* âââ FOOTER âââââââââââââââââââââââââââââââââââââââââ */
+    /* --- FOOTER ----------------------------------------- */
     footer {
       text-align: center;
       padding: 3.5rem 2rem;
@@ -520,7 +520,7 @@
       margin-top: 1.8rem;
     }
 
-    /* âââ ANIMATIONS âââââââââââââââââââââââââââââââââââââ */
+    /* --- ANIMATIONS ------------------------------------- */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(14px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -540,7 +540,7 @@
 </head>
 <body>
 
-<!-- ââ NAV ââââââââââââââââââââââââââââââââââââââââââââââââ -->
+<!-- == NAV ================================================ -->
 <nav id="nav">
   <div class="nav-inner">
     <a class="nav-name" href="#hero">Cam Esmon</a>
@@ -552,17 +552,17 @@
   </div>
 </nav>
 
-<!-- ââ HERO âââââââââââââââââââââââââââââââââââââââââââââââ -->
+<!-- == HERO =============================================== -->
 <div id="hero">
   <p class="hero-greeting">Hello!</p>
   <p class="hero-sub">
-    I'm Cam, a Product Engineer at Simple Modern â<br>
+    I'm Cam, a Product Engineer at Simple Modern &mdash;<br>
     a drinkware brand obsessed with delivering premium quality at accessible prices.<br>
     My work lives at the intersection of mechanical engineering, industrial design, and manufacturing.
   </p>
 </div>
 
-<!-- ââ STATS ROW ââââââââââââââââââââââââââââââââââââââââââ -->
+<!-- == STATS ROW ========================================== -->
 <div class="stats-row" id="stats-row">
   <div class="stat-item">
     <div class="stat-num" data-target="6">0</div>
@@ -578,7 +578,7 @@
   </div>
 </div>
 
-<!-- ââ ABOUT ââââââââââââââââââââââââââââââââââââââââââââââ -->
+<!-- == ABOUT ============================================== -->
 <div id="about">
   <div class="section-wrap">
     <div class="about-grid">
@@ -588,7 +588,7 @@
       </div>
       <div class="about-text reveal reveal-delay-1">
         <p>
-          I'm a product engineer at Simple Modern â a drinkware brand obsessed with delivering premium quality at accessible prices. My work lives at the intersection of mechanical engineering, industrial design, and manufacturing.
+          I'm a product engineer at Simple Modern &mdash; a drinkware brand obsessed with delivering premium quality at accessible prices. My work lives at the intersection of mechanical engineering, industrial design, and manufacturing.
         </p>
         <p>
           Every product here represents a real challenge: hitting tight cost targets without sacrificing function, surviving brutal drop tests, sealing reliably across extreme temperatures, and feeling genuinely premium in your hand.
@@ -598,7 +598,7 @@
   </div>
 </div>
 
-<!-- ââ PRODUCTS ââââââââââââââââââââââââââââââââââââââââââââ -->
+<!-- == PRODUCTS ============================================ -->
 <div id="products">
   <div class="section-wrap" style="padding-bottom:2rem">
     <p class="section-label reveal">Work</p>
@@ -608,51 +608,51 @@
   </div>
 </div>
 
-<!-- ââ MODAL ââââââââââââââââââââââââââââââââââââââââââââââ -->
+<!-- == MODAL ============================================== -->
 <div id="modal-overlay" role="dialog" aria-modal="true">
   <div id="modal">
     <div class="modal-close-bar">
-      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close">â</button>
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close">&times;</button>
     </div>
     <div id="modal-content"></div>
   </div>
 </div>
 
-<!-- ââ FOOTER ââââââââââââââââââââââââââââââââââââââââââââ -->
+<!-- == FOOTER ============================================ -->
 <footer id="contact">
   <div class="footer-name">Cam Esmon</div>
   <div class="footer-email">cameron.esmon@simplemodern.com</div>
-  <div class="footer-copy">Â© 2026 Â· Hardware Engineer Â· Simple Modern</div>
+  <div class="footer-copy">&copy; 2026 &middot; Hardware Engineer &middot; Simple Modern</div>
 </footer>
 
-<!-- ââ SCRIPTS ââââââââââââââââââââââââââââââââââââââââââââ -->
+<!-- == SCRIPTS ============================================ -->
 <script>
-/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-   âï¸  EDIT YOUR CONTENT HERE
+/* ===========================================================
+     EDIT YOUR CONTENT HERE
    All the text, links, and product data lives in this section.
-   Change anything below and save â no other code needs to touch.
-âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+   Change anything below and save &mdash; no other code needs to touch.
+=========================================================== */
 
-/* â YOUR INFO ------------------------------------------- */
+/* &mdash; YOUR INFO ------------------------------------------- */
 const SITE = {
   name:    "Cam Esmon",
   role:    "Hardware Engineer",
   company: "Simple Modern",
   email:   "cameron.esmon@simplemodern.com",
   greeting: "Hello!",
-  heroText: `I'm Cam, a Product Engineer at Simple Modern â
+  heroText: `I'm Cam, a Product Engineer at Simple Modern &mdash;
 a drinkware brand obsessed with delivering premium quality at accessible prices.
 My work lives at the intersection of mechanical engineering, industrial design, and manufacturing.`,
 };
 
-/* â STATS (hero numbers) --------------------------------- */
+/* &mdash; STATS (hero numbers) --------------------------------- */
 const STATS = [
   { value: 6,   suffix: "",   label: "Products" },
   { value: 4,   suffix: "",   label: "Categories" },
   { value: 100, suffix: "M+", label: "Units Sold" },
 ];
 
-/* â PRODUCTS --------------------------------------------- */
+/* &mdash; PRODUCTS --------------------------------------------- */
 // Each product can have an optional `image` URL.
 // Leave image as "" to show the placeholder.
 // To add an image: image: "https://your-image-url.jpg"
@@ -663,7 +663,7 @@ const products = [
     category: "Hydration",
     link: "https://www.simplemodern.com/collections/water-bottles",
     image: "",
-    challenge: "Design a leak-proof lid mechanism operable with a single hand while maintaining a hermetic seal across temperature ranges from â20Â°C to 100Â°C â and survive a 6-ft drop test onto concrete.",
+    challenge: "Design a leak-proof lid mechanism operable with a single hand while maintaining a hermetic seal across temperature ranges from -20&deg;C to 100&deg;C &mdash; and survive a 6-ft drop test onto concrete.",
     features: [
       "One-handed flip operation with tactile detent",
       "3-point silicone seal system",
@@ -686,9 +686,9 @@ const products = [
     category: "Coffee",
     link: "https://www.simplemodern.com/collections/coffee-canisters",
     image: "",
-    challenge: "Integrate a battery-powered micro-vacuum pump into a consumer coffee canister that extends bean freshness to 60+ days â all within a $35 retail price and child-safe locking mechanism.",
+    challenge: "Integrate a battery-powered micro-vacuum pump into a consumer coffee canister that extends bean freshness to 60+ days &mdash; all within a $35 retail price and child-safe locking mechanism.",
     features: [
-      "Motorized pump evacuates to â0.6 bar",
+      "Motorized pump evacuates to -0.6 bar",
       "Pressure sensor with LED freshness indicator",
       "Child-resistant lock mechanism",
     ],
@@ -709,7 +709,7 @@ const products = [
     category: "Licensed",
     link: "https://www.simplemodern.com/collections/sports-drinkware",
     image: "",
-    challenge: "Design a display case for authentic OKC Thunder basketballs that meets NBA licensing requirements, ships flat-pack, and assembles tool-free â while feeling premium enough for a flagship retail gift.",
+    challenge: "Design a display case for authentic OKC Thunder basketballs that meets NBA licensing requirements, ships flat-pack, and assembles tool-free &mdash; while feeling premium enough for a flagship retail gift.",
     features: [
       "NBA-licensed materials & finishes",
       "Tool-free snap-fit assembly",
@@ -718,7 +718,7 @@ const products = [
     innovations: [
       { title: "Snap-Fit Joinery", desc: "Engineered 8 interlocking joints that pass 50lb vertical load test with no adhesive or hardware." },
       { title: "Branding Integration", desc: "Co-designed with NBA licensor; Thunder colorway embedded in material selection, not applied print." },
-      { title: "Flat-Pack Efficiency", desc: "All components nest into a 14Ã14Ã3\" shipping carton, achieving 6:1 volume reduction vs. assembled." },
+      { title: "Flat-Pack Efficiency", desc: "All components nest into a 14&times;14&times;3\" shipping carton, achieving 6:1 volume reduction vs. assembled." },
     ],
     process: [
       { label: "Licensing", desc: "NBA style guide review, approved material palette, colorway sign-off" },
@@ -732,15 +732,15 @@ const products = [
     category: "Glassware",
     link: "https://www.simplemodern.com/collections/glass-drinkware",
     image: "",
-    challenge: "Develop a borosilicate glass tumbler with an injection-molded silicone sleeve that provides grip, thermal protection, and drop resistance â while keeping the product dishwasher-safe and at sub-$20 retail.",
+    challenge: "Develop a borosilicate glass tumbler with an injection-molded silicone sleeve that provides grip, thermal protection, and drop resistance &mdash; while keeping the product dishwasher-safe and at sub-$20 retail.",
     features: [
-      "Borosilicate glass, rated to 300Â°C thermal shock",
+      "Borosilicate glass, rated to 300&deg;C thermal shock",
       "Over-molded silicone grip sleeve",
       "Dishwasher-safe to 500+ cycles",
     ],
     innovations: [
       { title: "Sleeve Interface Geometry", desc: "Ribs on the glass body interlock with the silicone sleeve for zero-slip retention without adhesive." },
-      { title: "Thermal Shock Protocol", desc: "Custom test rig validates 0Â°Câ95Â°C cycling â 3Ã tighter than industry standard." },
+      { title: "Thermal Shock Protocol", desc: "Custom test rig validates 0&deg;C&rarr;95&deg;C cycling &mdash; 3&times; tighter than industry standard." },
       { title: "Sustainable Sourcing", desc: "Transitioned supplier to 30% recycled borosilicate batch without degrading optical clarity." },
     ],
     process: [
@@ -755,7 +755,7 @@ const products = [
     category: "Add Yours",
     link: "",
     image: "",
-    challenge: "Describe the core engineering challenge you solved with this product. What constraints were you working against â cost, size, performance, manufacturing?",
+    challenge: "Describe the core engineering challenge you solved with this product. What constraints were you working against &mdash; cost, size, performance, manufacturing?",
     features: [
       "Key feature or specification 1",
       "Key feature or specification 2",
@@ -778,7 +778,7 @@ const products = [
     category: "Add Yours",
     link: "",
     image: "",
-    challenge: "Describe the core engineering challenge you solved with this product. What constraints were you working against â cost, size, performance, manufacturing?",
+    challenge: "Describe the core engineering challenge you solved with this product. What constraints were you working against &mdash; cost, size, performance, manufacturing?",
     features: [
       "Key feature or specification 1",
       "Key feature or specification 2",
@@ -797,11 +797,11 @@ const products = [
   },
 ];
 
-/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-   END OF EDITABLE CONTENT â co need to change anything below
-âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+/* ===========================================================
+   END OF EDITABLE CONTENT &mdash; no need to change anything below
+=========================================================== */
 
-/* âââ RENDER STATS ââââââââââââââââââââââââââââââââââââââ */
+/* --- RENDER STATS -------------------------------------- */
 const statsRow = document.getElementById('stats-row');
 statsRow.innerHTML = STATS.map(s => `
   <div class="stat-item">
@@ -810,7 +810,7 @@ statsRow.innerHTML = STATS.map(s => `
   </div>
 `).join('');
 
-/* âââ COUNTER ANIMATION âââââââââââââââââââââââââââââââââ */
+/* --- COUNTER ANIMATION --------------------------------- */
 function animateCounters() {
   document.querySelectorAll('[data-target]').forEach(el => {
     const target = parseInt(el.dataset.target);
@@ -826,14 +826,14 @@ function animateCounters() {
 }
 setTimeout(animateCounters, 600);
 
-/* âââ PLACEHOLDER SVG âââââââââââââââââââââââââââââââââââ */
+/* --- PLACEHOLDER SVG ----------------------------------- */
 const placeholderSVG = `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect x="4" y="8" width="40" height="32" rx="1" stroke="currentColor" stroke-width="1.5"/>
   <path d="M4 32l10-10 8 8 8-8 14 12" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
   <circle cx="16" cy="18" r="4" stroke="currentColor" stroke-width="1.5"/>
 </svg>`;
 
-/* âââ RENDER CARDS ââââââââââââââââââââââââââââââââââââââ */
+/* --- RENDER CARDS -------------------------------------- */
 const grid = document.getElementById('product-grid');
 
 products.forEach((p, i) => {
@@ -846,7 +846,7 @@ products.forEach((p, i) => {
     ? `<img src="${p.image}" alt="${nameParts[0]}" loading="lazy">`
     : `<div class="card-img-placeholder">${placeholderSVG}<span class="placeholder-text">Add product image</span></div>`;
 
-  const shortDesc = p.challenge.length > 100 ? p.challenge.slice(0, 100) + 'â¦' : p.challenge;
+  const shortDesc = p.challenge.length > 100 ? p.challenge.slice(0, 100) + '...' : p.challenge;
 
   card.innerHTML = `
     <div class="card-img">${imgHTML}</div>
@@ -855,9 +855,9 @@ products.forEach((p, i) => {
       <div class="card-name">${nameParts[0]}${nameParts[1] ? '<br>' + nameParts[1] : ''}</div>
       <div class="card-desc">${shortDesc}</div>
       <div class="card-footer">
-        <span class="card-detail-link">View detail â</span>
+        <span class="card-detail-link">View detail &rarr;</span>
         ${p.link
-          ? `<a class="card-ext-link" href="${p.link}" target="_blank" rel="noopener" onclick="event.stopPropagation()">â simplemodern.com</a>`
+          ? `<a class="card-ext-link" href="${p.link}" target="_blank" rel="noopener" onclick="event.stopPropagation()">&#8599; simplemodern.com</a>`
           : `<span class="card-ext-link disabled">Link coming soon</span>`}
       </div>
     </div>
@@ -867,7 +867,7 @@ products.forEach((p, i) => {
   grid.appendChild(card);
 });
 
-/* âââ MODAL âââââââââââââââââââââââââââââââââââââââââââââ */
+/* --- MODAL --------------------------------------------- */
 const overlay = document.getElementById('modal-overlay');
 const modalContent = document.getElementById('modal-content');
 document.getElementById('modal-close-btn').addEventListener('click', closeModal);
@@ -886,8 +886,8 @@ function openModal(p) {
       <div class="modal-category">${p.category}</div>
       <h2 class="modal-name">${nameParts[0]}${nameParts[1] ? '<br>' + nameParts[1] : ''}</h2>
       ${p.link
-        ? `<a class="modal-product-link" href="${p.link}" target="_blank" rel="noopener">â View on simplemodern.com</a>`
-        : `<span class="modal-product-link disabled">â Link coming soon</span>`}
+        ? `<a class="modal-product-link" href="${p.link}" target="_blank" rel="noopener">&#8599; View on simplemodern.com</a>`
+        : `<span class="modal-product-link disabled">&#8599; Link coming soon</span>`}
       <div class="modal-challenge">
         <span class="modal-challenge-label">The Challenge</span>
         ${p.challenge}
@@ -924,7 +924,7 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-/* âââ SCROLL REVEAL âââââââââââââââââââââââââââââââââââââ */
+/* --- SCROLL REVEAL ------------------------------------- */
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
