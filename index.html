@@ -520,6 +520,53 @@
       margin-top: 1.8rem;
     }
 
+    /* --- SCROLL PROGRESS ---------------------------------- */
+    #scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 1px;
+      width: 0%;
+      background: var(--text);
+      z-index: 500;
+      pointer-events: none;
+    }
+
+    /* --- CUSTOM CURSOR ------------------------------------ */
+    * { cursor: none !important; }
+    .cursor-dot {
+      width: 5px; height: 5px;
+      background: var(--text);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s ease, height 0.2s ease;
+    }
+    .cursor-ring {
+      width: 28px; height: 28px;
+      border: 1px solid rgba(26,26,26,0.3);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease;
+    }
+    .cursor-dot.hover  { width: 8px; height: 8px; }
+    .cursor-ring.hover { width: 48px; height: 48px; border-color: rgba(26,26,26,0.15); }
+    @media (hover: none) { * { cursor: auto !important; } .cursor-dot, .cursor-ring { display: none; } }
+
+    /* --- CARD LIFT ---------------------------------------- */
+    .card {
+      transition: opacity 0.5s ease, transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease;
+    }
+    .card.visible:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.07);
+      z-index: 2;
+    }
+
     /* --- ANIMATIONS ------------------------------------- */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(14px); }
@@ -540,6 +587,11 @@
 </head>
 <body>
 
+<!-- Scroll progress + cursor -->
+<div id="scroll-progress"></div>
+<div class="cursor-dot" id="cursor-dot"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
 <!-- == NAV ================================================ -->
 <nav id="nav">
   <div class="nav-inner">
@@ -556,7 +608,8 @@
 <div id="hero">
   <p class="hero-greeting">Hello!</p>
   <p class="hero-sub">
-    I'm Cam, a Product Engineer at Simple Modern &mdash;<br>
+    I'm Cam, a Product Engineer at Simple Modern &mdash;
+    <br>
     a drinkware brand obsessed with delivering premium quality at accessible prices.<br>
     My work lives at the intersection of mechanical engineering, industrial design, and manufacturing.
   </p>
@@ -649,7 +702,7 @@ My work lives at the intersection of mechanical engineering, industrial design, 
 const STATS = [
   { value: 6,   suffix: "",   label: "Products" },
   { value: 4,   suffix: "",   label: "Categories" },
-  { value: 100, suffix: "M+", label: "Units Sold" },
+   { value: 100, suffix: "M+", label: "Units Sold" },
 ];
 
 /* &mdash; PRODUCTS --------------------------------------------- */
@@ -923,6 +976,30 @@ function closeModal() {
   overlay.classList.remove('open');
   document.body.style.overflow = '';
 }
+
+/* --- SCROLL PROGRESS ----------------------------------- */
+const progressBar = document.getElementById('scroll-progress');
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  progressBar.style.width = Math.min(pct, 100) + '%';
+}, { passive: true });
+
+/* --- CUSTOM CURSOR ------------------------------------- */
+const dot  = document.getElementById('cursor-dot');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; });
+(function lerpRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top  = ry + 'px';
+  requestAnimationFrame(lerpRing);
+})();
+document.querySelectorAll('a, button, .card, [role="button"]').forEach(el => {
+  el.addEventListener('mouseenter', () => { dot.classList.add('hover'); ring.classList.add('hover'); });
+  el.addEventListener('mouseleave', () => { dot.classList.remove('hover'); ring.classList.remove('hover'); });
+});
 
 /* --- SCROLL REVEAL ------------------------------------- */
 const revealObserver = new IntersectionObserver((entries) => {
