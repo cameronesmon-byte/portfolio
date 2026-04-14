@@ -608,8 +608,7 @@
 <div id="hero">
   <p class="hero-greeting">Hello!</p>
   <p class="hero-sub">
-    I'm Cam, a Product Engineer at Simple Modern &mdash;
-    <br>
+    I'm Cam, a Mechanical Engineer at Simple Modern &mdash;<br>
     a drinkware brand obsessed with delivering premium quality at accessible prices.<br>
     My work lives at the intersection of mechanical engineering, industrial design, and manufacturing.
   </p>
@@ -637,7 +636,7 @@
     <div class="about-grid">
       <div class="reveal">
         <p class="section-label">About</p>
-        <h2 class="about-heading">Engineering the Details<br>No One Sees</h2>
+        <h2 class="about-heading">Engineering the Details No One Sees,<br>Designing the Details Everyone Sees</h2>
       </div>
       <div class="about-text reveal reveal-delay-1">
         <p>
@@ -675,7 +674,7 @@
 <footer id="contact">
   <div class="footer-name">Cam Esmon</div>
   <div class="footer-email">cameron.esmon@simplemodern.com</div>
-  <div class="footer-copy">&copy; 2026 &middot; Hardware Engineer &middot; Simple Modern</div>
+  <div class="footer-copy">&copy; 2026 &middot; Product Engineer II &middot; Simple Modern</div>
 </footer>
 
 <!-- == SCRIPTS ============================================ -->
@@ -689,20 +688,20 @@
 /* &mdash; YOUR INFO ------------------------------------------- */
 const SITE = {
   name:    "Cam Esmon",
-  role:    "Hardware Engineer",
+  role:    "Product Engineer II",
   company: "Simple Modern",
   email:   "cameron.esmon@simplemodern.com",
   greeting: "Hello!",
-  heroText: `I'm Cam, a Product Engineer at Simple Modern &mdash;
+  heroText: `I'm Cam, a Mechanical Engineer at Simple Modern &mdash;
 a drinkware brand obsessed with delivering premium quality at accessible prices.
 My work lives at the intersection of mechanical engineering, industrial design, and manufacturing.`,
 };
 
 /* &mdash; STATS (hero numbers) --------------------------------- */
 const STATS = [
-  { value: 6,   suffix: "",   label: "Products" },
-  { value: 4,   suffix: "",   label: "Categories" },
-   { value: 100, suffix: "M+", label: "Units Sold" },
+  { value: 20,  suffix: "+",  label: "Products" },
+  { value: 5,   suffix: "+",  label: "Categories" },
+  { value: 10,  suffix: "M+", label: "Units Sold" },
 ];
 
 /* &mdash; PRODUCTS --------------------------------------------- */
@@ -712,20 +711,20 @@ const STATS = [
 const products = [
   {
     id: 1,
-    name: "Advanced Lid System\nWater Bottle",
+    name: "Mesa Loop",
     category: "Hydration",
-    link: "https://www.simplemodern.com/collections/water-bottles",
-    image: "",
-    challenge: "Design a leak-proof lid mechanism operable with a single hand while maintaining a hermetic seal across temperature ranges from -20&deg;C to 100&deg;C &mdash; and survive a 6-ft drop test onto concrete.",
+    link: "https://www.simplemodern.com/products/mesa-loop-30oz-58?queryID=243a1f33f5375f5fee62b3cb3c92fb09&objectID=41047629529160",
+    image: "https://custom.simplemodern.com/cdn/shop/files/MES-LP-CSHW_263624f9-40da-4c0c-8c0c-80d2cacf81db.jpg?v=1761774173&width=1024",
+    challenge: "Designing the Mesa Loop centered on elevating the drinking experience &mdash; creating an intuitive, comfortable carry that disappears while in use, while seamlessly integrating durability, clean form, and lid performance into a refined, cohesive design.",
     features: [
-      "One-handed flip operation with tactile detent",
-      "3-point silicone seal system",
-      "Double-wall vacuum insulation, 24hr cold",
+      "Clean Lock Covered Lid",
+      "Natural Drinking Contoured Straw",
+      "Easy to Carry Folding Loop Straw",
     ],
     innovations: [
-      { title: "Hinge Lock Geometry", desc: "Precision-toleranced living hinge with dual-action detent prevents accidental openings during inversion." },
-      { title: "Thermal Seal Ring", desc: "Asymmetric silicone gasket profile maintains positive seal under both positive and negative pressure." },
-      { title: "Cost-Optimized BOM", desc: "Reduced lid component count by 40% vs. initial concept while improving assembly yield rate." },
+      { title: "High Flow Drinking System", desc: "Optimized spout and straw geometry deliver a fast, natural flow rate, enhancing hydration without added effort." },
+      { title: "Seamless Loop Integration", desc: "Soft-touch loop is structurally integrated into the lid, balancing comfort, durability, and a low profile form." },
+      { title: "Protected Spout Mechanism", desc: "Button-actuated cover with integrated lock keeps the spout fully shielded, improving cleanliness and preventing accidental opening during transport." },
     ],
     process: [
       { label: "Concept", desc: "Mechanism sketching, lid typology review, competitor teardowns" },
