@@ -81,10 +81,10 @@
 
     /* --- HERO ------------------------------------------- */
     #hero {
-      padding-top: 7rem;
-      padding-bottom: 6rem;
+      padding-top: 5rem;
+      padding-bottom: 4.5rem;
       text-align: center;
-      max-width: 700px;
+      max-width: 680px;
       margin: 0 auto;
       padding-left: 2rem;
       padding-right: 2rem;
@@ -148,7 +148,7 @@
       text-transform: uppercase;
       color: var(--muted);
       font-weight: 400;
-      margin-bottom: 3.5rem;
+      margin-bottom: 2.5rem;
     }
 
     /* --- ABOUT ------------------------------------------- */
@@ -607,28 +607,16 @@
 
 <!-- == HERO =============================================== -->
 <div id="hero">
-  <p class="hero-greeting">Hello!</p>
+  <p class="hero-greeting">Hi, I'm Cam.</p>
   <p class="hero-sub">
-    I'm Cam, a Mechanical Engineer at Simple Modern &mdash;<br>
-    a drinkware brand obsessed with delivering premium quality at accessible prices.<br>
-    My work lives at the intersection of mechanical engineering, industrial design, and manufacturing.
+    Product Engineer II at Simple Modern &mdash; building drinkware that competes on premium quality at accessible prices.
+    I work at the intersection of mechanical engineering, industrial design, and manufacturing.
   </p>
 </div>
 
 <!-- == STATS ROW ========================================== -->
 <div class="stats-row" id="stats-row">
-  <div class="stat-item">
-    <div class="stat-num" data-target="6">0</div>
-    <div class="stat-label">Products</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num" data-target="4">0</div>
-    <div class="stat-label">Categories</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num" data-target="100" data-suffix="M+">0</div>
-    <div class="stat-label">Units Sold</div>
-  </div>
+  <!-- Rendered by JS from STATS array -->
 </div>
 
 <!-- == ABOUT ============================================== -->
@@ -641,10 +629,10 @@
       </div>
       <div class="about-text reveal reveal-delay-1">
         <p>
-          I'm a product engineer at Simple Modern &mdash; a drinkware brand obsessed with delivering premium quality at accessible prices. My work lives at the intersection of mechanical engineering, industrial design, and manufacturing.
+          Simple Modern competes with premium brands on quality while hitting accessible price points. Getting there means obsessing over tolerances, material selection, and manufacturing constraints &mdash; the invisible work that makes a product feel inevitable.
         </p>
         <p>
-          Every product here represents a real challenge: hitting tight cost targets without sacrificing function, surviving brutal drop tests, sealing reliably across extreme temperatures, and feeling genuinely premium in your hand.
+          My role spans the full lifecycle: translating a concept into geometry, then into tooled parts, then into something a customer holds in their hand. Every product in this portfolio represents a real engineering challenge solved under real constraints.
         </p>
       </div>
     </div>
@@ -800,52 +788,6 @@ const products = [
       { label: "Material Selection", desc: "Glass type comparison, silicone durometer testing, colorant compatibility" },
       { label: "Tooling", desc: "Glass mold design, silicone over-mold tooling, parting line optimization" },
       { label: "Testing", desc: "Dishwasher cycle test, thermal shock, drop test, sleeve pull-off force" },
-    ],
-  },
-  {
-    id: 5,
-    name: "[ Your Product\nHere ]",
-    category: "Add Yours",
-    link: "",
-    image: "",
-    challenge: "Describe the core engineering challenge you solved with this product. What constraints were you working against &mdash; cost, size, performance, manufacturing?",
-    features: [
-      "Key feature or specification 1",
-      "Key feature or specification 2",
-      "Key feature or specification 3",
-    ],
-    innovations: [
-      { title: "Innovation Title", desc: "Brief description of the technical approach or clever solution you devised." },
-      { title: "Innovation Title", desc: "Brief description of the technical approach or clever solution you devised." },
-      { title: "Innovation Title", desc: "Brief description of the technical approach or clever solution you devised." },
-    ],
-    process: [
-      { label: "Phase 1", desc: "What you did in the first phase of the project" },
-      { label: "Phase 2", desc: "What you did in the second phase of the project" },
-      { label: "Phase 3", desc: "What you did in the final phase of the project" },
-    ],
-  },
-  {
-    id: 6,
-    name: "[ Your Product\nHere ]",
-    category: "Add Yours",
-    link: "",
-    image: "",
-    challenge: "Describe the core engineering challenge you solved with this product. What constraints were you working against &mdash; cost, size, performance, manufacturing?",
-    features: [
-      "Key feature or specification 1",
-      "Key feature or specification 2",
-      "Key feature or specification 3",
-    ],
-    innovations: [
-      { title: "Innovation Title", desc: "Brief description of the technical approach or clever solution you devised." },
-      { title: "Innovation Title", desc: "Brief description of the technical approach or clever solution you devised." },
-      { title: "Innovation Title", desc: "Brief description of the technical approach or clever solution you devised." },
-    ],
-    process: [
-      { label: "Phase 1", desc: "What you did in the first phase of the project" },
-      { label: "Phase 2", desc: "What you did in the second phase of the project" },
-      { label: "Phase 3", desc: "What you did in the final phase of the project" },
     ],
   },
 ];
